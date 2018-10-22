@@ -1,0 +1,761 @@
+<!DOCTYPE html>
+<html lang="">
+    <!-- title -->
+
+
+
+
+<!-- keywords -->
+
+
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" >
+    <meta name="author" content="scwangyuan">
+    <meta name="renderer" content="webkit">
+    <meta name="copyright" content="scwangyuan">
+    
+    <meta name="keywords" content="hexo,hexo-theme,hexo-blog">
+    
+    <meta name="description" content="">
+    <meta http-equiv="Cache-control" content="no-cache">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <title>牛客算法初级班总结 · scwangyuan&#39;s blog</title>
+    <style type="text/css">
+    @font-face {
+        font-family: 'Oswald-Regular';
+        src: url("/font/Oswald-Regular.ttf");
+    }
+
+    body {
+        margin: 0;
+    }
+
+    header,
+    footer,
+    .back-top,
+    .sidebar,
+    .container,
+    .site-intro-meta,
+    .toc-wrapper {
+        display: none;
+    }
+
+    .site-intro {
+        position: relative;
+        z-index: 3;
+        width: 100%;
+        /* height: 50vh; */
+        overflow: hidden;
+    }
+
+    .site-intro-placeholder {
+        position: absolute;
+        z-index: -2;
+        top: 0;
+        left: 0;
+        width: calc(100% + 300px);
+        height: 100%;
+        background: repeating-linear-gradient(-45deg, #444 0, #444 80px, #333 80px, #333 160px);
+        background-position: center center;
+        transform: translate3d(-226px, 0, 0);
+        animation: gradient-move 2.5s ease-out 0s infinite;
+    }
+
+    @keyframes gradient-move {
+        0% {
+            transform: translate3d(-226px, 0, 0);
+        }
+        100% {
+            transform: translate3d(0, 0, 0);
+        }
+    }
+
+</style>
+
+    <link rel="preload" href= "/css/style.css?v=20180824" as="style" onload="this.onload=null;this.rel='stylesheet'" />
+    <link rel="stylesheet" href= "/css/mobile.css?v=20180824" media="(max-width: 980px)">
+    
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'" />
+    
+    <!-- /*! loadCSS. [c]2017 Filament Group, Inc. MIT License */
+/* This file is meant as a standalone workflow for
+- testing support for link[rel=preload]
+- enabling async CSS loading in browsers that do not support rel=preload
+- applying rel preload css once loaded, whether supported or not.
+*/ -->
+<script>
+(function( w ){
+	"use strict";
+	// rel=preload support test
+	if( !w.loadCSS ){
+		w.loadCSS = function(){};
+	}
+	// define on the loadCSS obj
+	var rp = loadCSS.relpreload = {};
+	// rel=preload feature support test
+	// runs once and returns a function for compat purposes
+	rp.support = (function(){
+		var ret;
+		try {
+			ret = w.document.createElement( "link" ).relList.supports( "preload" );
+		} catch (e) {
+			ret = false;
+		}
+		return function(){
+			return ret;
+		};
+	})();
+
+	// if preload isn't supported, get an asynchronous load by using a non-matching media attribute
+	// then change that media back to its intended value on load
+	rp.bindMediaToggle = function( link ){
+		// remember existing media attr for ultimate state, or default to 'all'
+		var finalMedia = link.media || "all";
+
+		function enableStylesheet(){
+			link.media = finalMedia;
+		}
+
+		// bind load handlers to enable media
+		if( link.addEventListener ){
+			link.addEventListener( "load", enableStylesheet );
+		} else if( link.attachEvent ){
+			link.attachEvent( "onload", enableStylesheet );
+		}
+
+		// Set rel and non-applicable media type to start an async request
+		// note: timeout allows this to happen async to let rendering continue in IE
+		setTimeout(function(){
+			link.rel = "stylesheet";
+			link.media = "only x";
+		});
+		// also enable media after 3 seconds,
+		// which will catch very old browsers (android 2.x, old firefox) that don't support onload on link
+		setTimeout( enableStylesheet, 3000 );
+	};
+
+	// loop through link elements in DOM
+	rp.poly = function(){
+		// double check this to prevent external calls from running
+		if( rp.support() ){
+			return;
+		}
+		var links = w.document.getElementsByTagName( "link" );
+		for( var i = 0; i < links.length; i++ ){
+			var link = links[ i ];
+			// qualify links to those with rel=preload and as=style attrs
+			if( link.rel === "preload" && link.getAttribute( "as" ) === "style" && !link.getAttribute( "data-loadcss" ) ){
+				// prevent rerunning on link
+				link.setAttribute( "data-loadcss", true );
+				// bind listeners to toggle media back
+				rp.bindMediaToggle( link );
+			}
+		}
+	};
+
+	// if unsupported, run the polyfill
+	if( !rp.support() ){
+		// run once at least
+		rp.poly();
+
+		// rerun poly on an interval until onload
+		var run = w.setInterval( rp.poly, 500 );
+		if( w.addEventListener ){
+			w.addEventListener( "load", function(){
+				rp.poly();
+				w.clearInterval( run );
+			} );
+		} else if( w.attachEvent ){
+			w.attachEvent( "onload", function(){
+				rp.poly();
+				w.clearInterval( run );
+			} );
+		}
+	}
+
+
+	// commonjs
+	if( typeof exports !== "undefined" ){
+		exports.loadCSS = loadCSS;
+	}
+	else {
+		w.loadCSS = loadCSS;
+	}
+}( typeof global !== "undefined" ? global : this ) );
+</script>
+
+    <link rel="icon" href= "/assets/favicon.ico" />
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/webfontloader@1.6.28/webfontloader.min.js" as="script" />
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js" as="script" />
+    <link rel="preload" href="/scripts/main.js" as="script" />
+    <link rel="preload" as="font" href="/font/Oswald-Regular.ttf" crossorigin>
+    <link rel="preload" as="font" href="https://at.alicdn.com/t/font_327081_1dta1rlogw17zaor.woff" crossorigin>
+    
+    <!-- fancybox -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.js" defer></script>
+    <!-- 百度统计  -->
+    
+    <!-- 谷歌统计  -->
+    
+</head>
+
+    
+        <body class="post-body">
+    
+    
+<header class="header">
+
+    <div class="read-progress"></div>
+    <div class="header-sidebar-menu">&#xe775;</div>
+    <!-- post页的toggle banner  -->
+    
+    <div class="banner">
+            <div class="blog-title">
+                <a href="/" >scwangyuan&#39;s blog</a>
+            </div>
+            <div class="post-title">
+                <a href="#" class="post-name">牛客算法初级班总结</a>
+            </div>
+    </div>
+    
+    <a class="home-link" href=/>scwangyuan's blog</a>
+</header>
+    <div class="wrapper">
+        <div class="site-intro" style="
+
+
+
+
+
+
+
+height:50vh;
+">
+    
+    <!-- 主页  -->
+    
+    
+    <!-- 404页  -->
+            
+    <div class="site-intro-placeholder"></div>
+    <div class="site-intro-img" style="background-image: url(/intro/post-bg.jpg)"></div>
+    <div class="site-intro-meta">
+        <!-- 标题  -->
+        <h1 class="intro-title">
+            <!-- 主页  -->
+            
+            牛客算法初级班总结
+            <!-- 404 -->
+            
+        </h1>
+        <!-- 副标题 -->
+        <p class="intro-subtitle">
+            <!-- 主页副标题  -->
+            
+            
+            <!-- 404 -->
+            
+        </p>
+        <!-- 文章页meta -->
+        
+            <div class="post-intros">
+                <!-- 文章页标签  -->
+                
+                
+                    <div class="post-intro-read">
+                        <span>字数统计: <span class="post-count word-count">2.4k</span>阅读时长: <span class="post-count reading-time">11 min</span></span>
+                    </div>
+                
+                <div class="post-intro-meta">
+                    <span class="post-intro-calander iconfont-archer">&#xe676;</span>
+                    <span class="post-intro-time">2018/10/22</span>
+                    
+                    <span id="busuanzi_container_page_pv" class="busuanzi-pv">
+                        <span class="iconfont-archer">&#xe602;</span>
+                        <span id="busuanzi_value_page_pv"></span>
+                    </span>
+                    
+                    <span class="shareWrapper">
+                        <span class="iconfont-archer shareIcon">&#xe71d;</span>
+                        <span class="shareText">Share</span>
+                        <ul class="shareList">
+                            <li class="iconfont-archer share-qr" data-type="qr">&#xe75b;
+                                <div class="share-qrcode"></div>
+                            </li>
+                            <li class="iconfont-archer" data-type="weibo">&#xe619;</li>
+                            <li class="iconfont-archer" data-type="qzone">&#xe62e;</li>
+                            <li class="iconfont-archer" data-type="twitter">&#xe634;</li>
+                            <li class="iconfont-archer" data-type="facebook">&#xe67a;</li>
+                        </ul>
+                    </span>
+                </div>
+            </div>
+        
+    </div>
+</div>
+        <script>
+ 
+  // get user agent
+  var browser = {
+    versions: function () {
+      var u = window.navigator.userAgent;
+      return {
+        userAgent: u,
+        trident: u.indexOf('Trident') > -1, //IE内核
+        presto: u.indexOf('Presto') > -1, //opera内核
+        webKit: u.indexOf('AppleWebKit') > -1, //苹果、谷歌内核
+        gecko: u.indexOf('Gecko') > -1 && u.indexOf('KHTML') == -1, //火狐内核
+        mobile: !!u.match(/AppleWebKit.*Mobile.*/), //是否为移动终端
+        ios: !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/), //ios终端
+        android: u.indexOf('Android') > -1 || u.indexOf('Linux') > -1, //android终端或者uc浏览器
+        iPhone: u.indexOf('iPhone') > -1 || u.indexOf('Mac') > -1, //是否为iPhone或者安卓QQ浏览器
+        iPad: u.indexOf('iPad') > -1, //是否为iPad
+        webApp: u.indexOf('Safari') == -1, //是否为web应用程序，没有头部与底部
+        weixin: u.indexOf('MicroMessenger') == -1, //是否为微信浏览器
+        uc: u.indexOf('UCBrowser') > -1 //是否为android下的UC浏览器
+      };
+    }()
+  }
+  console.log("userAgent:" + browser.versions.userAgent);
+
+  // callback
+  function fontLoaded() {
+    console.log('font loaded');
+    if (document.getElementsByClassName('site-intro-meta')) {
+      document.getElementsByClassName('intro-title')[0].classList.add('intro-fade-in');
+      document.getElementsByClassName('intro-subtitle')[0].classList.add('intro-fade-in');
+      var postIntros = document.getElementsByClassName('post-intros')[0]
+      if (postIntros) {
+        postIntros.classList.add('post-fade-in');
+      }
+    }
+  }
+
+  // UC不支持跨域，所以直接显示
+  function asyncCb(){
+    if (browser.versions.uc) {
+      console.log("UCBrowser");
+      fontLoaded();
+    } else {
+      WebFont.load({
+        custom: {
+          families: ['Oswald-Regular']
+        },
+        loading: function () {  //所有字体开始加载
+          // console.log('loading');
+        },
+        active: function () {  //所有字体已渲染
+          fontLoaded();
+        },
+        inactive: function () { //字体预加载失败，无效字体或浏览器不支持加载
+          console.log('inactive: timeout');
+          fontLoaded();
+        },
+        timeout: 5000 // Set the timeout to two seconds
+      });
+    }
+  }
+
+  function asyncErr(){
+    console.warn('script load from CDN failed, will load local script')
+  }
+
+  // load webfont-loader async, and add callback function
+  function async(u, cb, err) {
+    var d = document, t = 'script',
+      o = d.createElement(t),
+      s = d.getElementsByTagName(t)[0];
+    o.src = u;
+    if (cb) { o.addEventListener('load', function (e) { cb(null, e); }, false); }
+    if (err) { o.addEventListener('error', function (e) { err(null, e); }, false); }
+    s.parentNode.insertBefore(o, s);
+  }
+
+  var asyncLoadWithFallBack = function(arr, success, reject) {
+      var currReject = function(){
+        reject()
+        arr.shift()
+        if(arr.length)
+          async(arr[0], success, currReject)
+        }
+
+      async(arr[0], success, currReject)
+  }
+
+  asyncLoadWithFallBack([
+    "https://cdn.jsdelivr.net/npm/webfontloader@1.6.28/webfontloader.min.js", 
+    "https://cdn.bootcss.com/webfont/1.6.28/webfontloader.js",
+    "/lib/webfontloader.min.js"
+  ], asyncCb, asyncErr)
+</script>        
+        <img class="loading" src="/assets/loading.svg" style="display: block; margin: 6rem auto 0 auto; width: 6rem; height: 6rem;" />
+        <div class="container container-unloaded">
+            <main class="main post-page">
+    <article class="article-entry">
+        <p>Welcome to <a href="https://scwangyuan.github.io/" target="_blank" rel="noopener">scwangyuan’s blog</a>! It is my very first blog. If you get any problems when you’re reading  , You can contact me through the contact information on the blog or you can ask me on <a href="https://github.com/scwangyuan/scwangyuan.github.io">GitHub</a>.</p>
+<h2 id="牛客算法初级班第一课总结"><a href="#牛客算法初级班第一课总结" class="headerlink" title="牛客算法初级班第一课总结"></a>牛客算法初级班第一课总结</h2><p>####复杂度估算和排序算法（上）</p>
+<p>#####认识时间复杂度和空间复杂度<br>时间复杂度是评价一个算法流程好坏的指标，常用O（读作big O）</p>
+<p>#####认识对数器<br>对数器的概念和使用<br>0，有一个你想要测的方法a，<br>1，实现一个绝对正确但是复杂度不好的方法b，<br>2，实现一个随机样本产生器<br>3，实现比对的方法<br>4，把方法a和方法b比对很多次来验证方法a是否正确。<br>5，如果有一个样本使得比对出错，打印样本分析是哪个方法出错<br>6，当样本数量很多时比对测试依然正确，可以确定方法a已经正确。</p>
+<p>######代码案例：冒泡排序的对数器：</p>
+<p>######1.要测的方法<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">public static void sort(int[] arr) &#123;</span><br><span class="line">        <span class="keyword">if</span>(arr == null || arr.length &lt; 2)</span><br><span class="line">            <span class="built_in">return</span>;</span><br><span class="line">        <span class="keyword">for</span>(int end = arr.length-1;end &gt; 0;end--) &#123;</span><br><span class="line">            <span class="keyword">for</span>(int i = 0;i &lt; end;i++) &#123;</span><br><span class="line">                <span class="keyword">if</span>(arr[i] &gt; arr[i+1]) &#123;</span><br><span class="line">                    //自己实现的交换的方法</span><br><span class="line">                    swap(arr, i, i+1);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure></p>
+<p>######2.实现一个绝对正确即使复杂度不好的方法<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">// <span class="keyword">for</span> <span class="built_in">test</span> 一个绝对正确的方法，调用java自带的排序方法</span><br><span class="line">public static void rightMethod(int[] arr) &#123;</span><br><span class="line">    Arrays.sort(arr);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>######3.实现一个随机样本产生器；<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">// <span class="keyword">for</span> <span class="built_in">test</span> 随机数组生成器</span><br><span class="line">/*</span><br><span class="line"> * Math.random() -&gt; double[0,1)</span><br><span class="line"> * (int) ((size + 1) * Math.random()) -&gt; [0, size]</span><br><span class="line"> * size = 6, size + 1 = 7</span><br><span class="line"> * Math.random() -&gt; [0,1) * 7 -&gt; [0,7)double</span><br><span class="line"> * double -&gt; int[0,6] -&gt; int</span><br><span class="line"> */</span><br><span class="line">public static int[] generateRandomArray(int size, int value) &#123;</span><br><span class="line">    //产生的数组长度是[0, size]</span><br><span class="line">    int[] arr = new int[(int) ((size + 1) * Math.random())];</span><br><span class="line"></span><br><span class="line">    //产生的数组中的数的范围是-value ~ value</span><br><span class="line">    <span class="keyword">for</span>(int i = 0;i &lt; arr.length;i++) &#123;</span><br><span class="line">        arr[i] = (int) ((value + 1) * Math.random()</span><br><span class="line">                - (int) (value * Math.random()));</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">return</span> arr;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>######4.实现比对的方法；<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">//判断两个数组是否相等</span><br><span class="line">public static boolean isEqual(int[] arr1, int[] arr2) &#123;</span><br><span class="line">    <span class="keyword">if</span>((arr1 == null &amp;&amp; arr2 != null) || (arr1 != null &amp;&amp; arr2 == null))</span><br><span class="line">        <span class="built_in">return</span> <span class="literal">false</span>;</span><br><span class="line">    <span class="keyword">if</span>(arr1 == null &amp;&amp; arr2 == null)</span><br><span class="line">        <span class="built_in">return</span> <span class="literal">true</span>;</span><br><span class="line">    <span class="keyword">if</span>(arr1.length != arr2.length)</span><br><span class="line">        <span class="built_in">return</span> <span class="literal">false</span>;</span><br><span class="line">    <span class="keyword">for</span>(int i = 0;i &lt; arr1.length;i++) &#123;</span><br><span class="line">        <span class="keyword">if</span>(arr1[i] != arr2[i])</span><br><span class="line">            <span class="built_in">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">return</span> <span class="literal">true</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>######5.把方法a和方法b比对很多次来验证方法a是否正确</p>
+<p>######6.如果有一个样本使得比对出错，打印样本分析是哪个方法出错</p>
+<p>######7.当样本数量很多时比对测试依然正确，可以确定方法a已经正确<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">//主方法中：</span><br><span class="line">public static void main(String[] args) &#123;</span><br><span class="line">    //testTime是测试次数</span><br><span class="line">    int testTime = 500000;</span><br><span class="line">    int size = 10;</span><br><span class="line">    int value = 100;</span><br><span class="line">    boolean succeed = <span class="literal">true</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span>(int i = 0;i &lt; testTime;i++) &#123;</span><br><span class="line">        int[] arr1 = generateRandomArray(size, value);</span><br><span class="line">        //拷贝数组，数组new出来的就是在栈中不同的空间中存放，内容相同</span><br><span class="line">        //copyArray(int[] arr)是自己实现的拷贝方法</span><br><span class="line">        int[] arr2 = copyArray(arr1);</span><br><span class="line">        int[] arr3 = copyArray(arr1);</span><br><span class="line">        sort(arr1);</span><br><span class="line">        rightMethod(arr2);</span><br><span class="line">        <span class="keyword">if</span>(!isEqual(arr1, arr2)) &#123;</span><br><span class="line">            succeed = <span class="literal">false</span>;</span><br><span class="line">            //打印出错的数组，printArray是自习实现的打印的方法</span><br><span class="line">            printArray(arr3);</span><br><span class="line">            <span class="built_in">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    //打印要测的部分是否正确</span><br><span class="line">    System.out.println(succeed ? <span class="string">"succeed!"</span> : <span class="string">"false.."</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>#####3）冒泡排序</p>
+<pre><code>1. 从第一个元素开始，比较相邻的一对元素。
+2. 如果前面的比后面的大，交换它们。
+3. 一轮遍历之后最大的元素一定会位于序列结尾。
+4. 重复1-3，每次将剩下的元素中最大的放到剩下元素组成序列的结尾。
+</code></pre><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br></pre></td><td class="code"><pre><span class="line">public class BubbleSort &#123;</span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        // TODO Auto-generated method stub</span><br><span class="line">        int a[] =&#123;13,15,37,89,60,39,12,109,56,72&#125; ;</span><br><span class="line">        int i = 0;</span><br><span class="line">        int j = 0;</span><br><span class="line">        <span class="keyword">for</span>(i=0;i&lt;10;i++)</span><br><span class="line">            System.out.print(a[i]+<span class="string">"  "</span>);</span><br><span class="line">        System.out.println();</span><br><span class="line">        <span class="keyword">for</span>(i=0;i&lt;a.length;i++)</span><br><span class="line">            <span class="keyword">for</span>(j=0;j&lt;a.length-i-1;j++)</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">if</span>(a[j]&gt;a[j+1])</span><br><span class="line">                &#123;</span><br><span class="line">                    int temp;</span><br><span class="line">                    temp=a[j];</span><br><span class="line">                    a[j]=a[j+1];</span><br><span class="line">                    a[j+1]=temp;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        <span class="keyword">for</span>(i=0;i&lt;10;i++)</span><br><span class="line">            System.out.print(a[i]+<span class="string">"  "</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">#####4）选择排序</span></span><br><span class="line">算法思想：</span><br><span class="line">	将待排序序列分为两部分，一部分为有序序列，另一部分为无序序列。第一趟：从a[0]到a[n-1]中找到最小的数a[i]，然后将a[i]与a[0]交换，第二趟：从a[1]到a[n-1]中找到最小的数a[j]，然后将a[j]与a[1]交换,第三趟：从a[2]到a[n-1]中找到最小的数a[k],然后将a[k]与a[2]交换 ……</span><br><span class="line"></span><br><span class="line">2、实例分析：</span><br><span class="line"> &#123;13,15,37,89,60,39,12,109,56,72&#125;</span><br><span class="line"></span><br><span class="line">第一趟 ：12  &#123;15,37,89,60,39,13,109,56,72&#125;</span><br><span class="line"></span><br><span class="line">第二趟：12 ，13 &#123;37,89,60,39,15,109,56,72&#125;</span><br><span class="line"></span><br><span class="line">第三趟：12 ，13 ，15 &#123;89,60,39,37,109,56,72&#125;</span><br><span class="line"></span><br><span class="line">……</span><br><span class="line">```bash</span><br><span class="line"></span><br><span class="line">public class SelectSort &#123;</span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        // TODO Auto-generated method stub</span><br><span class="line">        int a[] =&#123;13,15,37,89,60,39,12,109,56,72&#125; ;</span><br><span class="line">        int i;</span><br><span class="line">        int j;</span><br><span class="line">          <span class="keyword">for</span>(i = 0;i&lt;a.length;i++)</span><br><span class="line">            System.out.print(a[i]+<span class="string">"  "</span>);</span><br><span class="line">        System.out.println();</span><br><span class="line">        <span class="keyword">for</span>(i = 0;i&lt;a.length;i++)&#123;</span><br><span class="line">            int min = a[i];</span><br><span class="line">            <span class="keyword">for</span>(j = i+1;j&lt;a.length;j++)&#123;</span><br><span class="line">                <span class="keyword">if</span>(min&gt;a[j])&#123;</span><br><span class="line">                    int temp;</span><br><span class="line">                    temp = min;</span><br><span class="line">                    min = a[j];</span><br><span class="line">                    a[j] = temp;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            a[i] = min;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span>(i = 0;i&lt;a.length;i++)</span><br><span class="line">            System.out.print(a[i]+<span class="string">"  "</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>#####5）插入排序<br>算法思想：<br>1〉从第一个元素开始，该元素可以认为已经被排序<br> 2〉取出第一个未排序元素存放在临时变量temp中，在已经排序的元素序列中从后往前扫描，逐一比较<br> 3〉如果temp小于已排序元素，将该元素移到下个位置<br> 4〉重复步骤3〉，直到找到已排序的元素小于或者等于</p>
+<p>实例分析：<br>{13,15,37,89,60,39,12,109,56,72}</p>
+<p>第一趟：   13 {15,37,89,60,39,12,109,56,72}     temp = 15</p>
+<p> temp&gt;13</p>
+<p>第二趟：   13 ,15 { 37,89,60,39,12,109,56,72}      temp = 37</p>
+<p>temp&gt;15         temp&gt;13 </p>
+<p>第三趟： 13，15 ，37  {89,60,39,12,109,56,72}     temp = 89</p>
+<p>temp&gt;37       temp&gt;15       temp&gt;13</p>
+<p>第三趟： 13，15 ，37 ，89 {60,39,12,109,56,72}     temp =60</p>
+<p>temp&lt; 89：60<->89          13，15 ，37 ， 60，89 {39,12,109,56,72}  </-></p>
+<p>temp&gt;37        temp&gt;15        temp&gt;13</p>
+<p>第四趟： 13，15 ，37 ， 60，89  {39,12,109,56,72}        temp = 39</p>
+<p>temp&lt;89：  39<->89           13，15 ，37 ， 60，39，89 {12,109,56,72}   </-></p>
+<p>temp&lt;60  ：   39<->60           13，15 ，37 ， 39，60，89 {12,109,56,72}   </-></p>
+<p>temp&gt;37      temp&gt;15         temp &gt;13</p>
+<p>第五趟：    13，15 ，37 ， 39，60，89 {12,109,56,72}       temp = 12<br>temp&lt;89 ：12<->89                   13，15 ，37 ，39，60， 12，89 {109,56,72}  </-></p>
+<p>temp&lt;60：12<->60                    13，15 ，37 ，39，12，60，89 {109,56,72}  </-></p>
+<p>temp&lt;39 ：12<->39                   13，15 ，37 ，12，39，60，89 {109,56,72}  </-></p>
+<p>temp&lt;37 ：12<->37                    13，15 ，12 ，37 ，39，60，89 {109,56,72}  </-></p>
+<p>temp&lt;15： 12<->15                   13，12，15 ，37 ，39，60，89 {109,56,72}  </-></p>
+<p>temp&lt;13 ：12<->13                     12，13，15 ，37 ，39，60，89 {109,56,72}  </-></p>
+<p>第六趟：  12，13，15 ，37 ，39，60，89 {109,56,72}           temp = 109</p>
+<p>……<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">import java.util.Arrays;</span><br><span class="line">/**</span><br><span class="line">* 插入排序</span><br><span class="line">* @author xcbeyond</span><br><span class="line">*</span><br><span class="line">*/</span><br><span class="line">public class InsertSort &#123;</span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        // TODO Auto-generated method stub</span><br><span class="line">        int a[] =&#123;13,15,37,89,60,39,12,109,56,72&#125; ;</span><br><span class="line">        a = insertSort(a);</span><br><span class="line">        String s = Arrays.toString(a);</span><br><span class="line">        System.out.println(s);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">public static int[] insertSort(int[] ary)&#123;</span><br><span class="line">        <span class="keyword">for</span>(int i = 1;i &lt; ary.length;i++)&#123;</span><br><span class="line">            int temp = ary[i];</span><br><span class="line">            int j;</span><br><span class="line">            <span class="keyword">for</span>(j = i-1;j&gt;=0;j--)&#123;</span><br><span class="line">                <span class="keyword">if</span>(temp &lt; ary[j])&#123;</span><br><span class="line">                    ary[j+1] = ary[j];</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">else</span></span><br><span class="line">                    <span class="built_in">break</span>; //找到插入位置</span><br><span class="line">            &#125;</span><br><span class="line">            ary[j+1] = temp;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line"><span class="built_in">return</span> ary;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>#####6）如何分析递归过程的时间复杂度</p>
+<p>#####7）归并排序<br>归并排序的过程，将数据分解后，再进行合并</p>
+<p>原理：归并的每一次合并都是将两个有序组合并为一个有序组，合并好后的有序组，再和另外的有序组继续合并，最终可以得到一个完整的有序数组<br><br>累加的原理<br>这里主要就是利用合并的过程中，两个有序组都是有序的进行判断累加，我们以上图的数据为3,5组和数据为8,9组合并的过程为例，来计算累加的结果<br><br>从上面的图可以看出，如果p1索引的值小于p2索引的值，那么这一次排序的过程可以计算右侧数组比3大的数有2个（因为每一组都是有序的），然后索引p1向右移动<br><br>从上面的图可以看出，p1索引的值小于p2索引的值，那么这一次排序过程可以计算出右边比5大的数有2个</p>
+<p>总结：上面两个有序组合并为一个有序组时，累加的小和的值为： 3<em>2+5</em>2=16</p>
+<p>#####8）小和问题<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line">public static int smallSum(int[] arr) &#123;</span><br><span class="line">        <span class="keyword">if</span> (arr == null || arr.length &lt; 2) &#123;</span><br><span class="line">            <span class="built_in">return</span> 0;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">return</span>  mergeSort(arr,0,arr.length-1);</span><br><span class="line">    &#125;</span><br><span class="line">    public static int mergeSort(int[] arr, int L, int R) &#123;</span><br><span class="line">        <span class="keyword">if</span> (L == R) &#123;</span><br><span class="line">            <span class="built_in">return</span> 0;</span><br><span class="line">        &#125;</span><br><span class="line">        int mid = (L + R) &gt;&gt;&gt;1;//这里是防止数据溢出</span><br><span class="line">        <span class="built_in">return</span> mergeSort(arr, L, mid) + mergeSort(arr, mid + 1, R) + merge(arr, L, mid, R);</span><br><span class="line">    &#125;</span><br><span class="line">    //合并的过程</span><br><span class="line">    public static int merge(int[] arr, int L, int mid, int R) &#123;</span><br><span class="line">        //准备一个临时数组，长度和传进来的arr一样</span><br><span class="line">        int[] temp = new int[R - L + 1];</span><br><span class="line">        int p1 = L;</span><br><span class="line">        int p2 = mid + 1;</span><br><span class="line">        //临时数组temp的索引起始变量</span><br><span class="line">        int i = 0;</span><br><span class="line">        //小和结果的变量</span><br><span class="line">        int result = 0;</span><br><span class="line">        //合并数组的循环，并计算小和</span><br><span class="line">        <span class="keyword">while</span> (p1 &lt;= mid &amp;&amp; p2 &lt;= R) &#123;</span><br><span class="line">            <span class="keyword">if</span> (arr[p1] &lt; arr[p2]) &#123;</span><br><span class="line">                //计算小和的累加结果，(R-p2+1)为比数arr[p1]大的数量</span><br><span class="line">                result += (R - p2 + 1) * arr[p1];</span><br><span class="line">                temp[i] = arr[p1];</span><br><span class="line">                p1++;</span><br><span class="line">                i++;</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                temp[i] = arr[p2];</span><br><span class="line">                p2++;</span><br><span class="line">                i++;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">while</span> (p1 &lt;= mid) &#123;</span><br><span class="line">            temp[i] = arr[p1];</span><br><span class="line">            i++;</span><br><span class="line">            p1++;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">while</span> (p2 &lt;= R) &#123;</span><br><span class="line">            temp[i] = arr[p2];</span><br><span class="line">            i++;</span><br><span class="line">            p2++;</span><br><span class="line">        &#125;</span><br><span class="line">        //这里是将临时数组temp的元素重新赋值给传入进来的arr</span><br><span class="line">        <span class="keyword">for</span> (int j = 0; j &lt; temp.length; j++) &#123;</span><br><span class="line">            arr[L + j] = temp[j];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">return</span> result;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure></p>
+
+    </article>
+    <!-- license  -->
+    
+        <div class="license-wrapper">
+            <p>原文作者：<a href="https://github.com/scwangyuan/scwangyuan.github.io">scwangyuan</a>
+            <p>原文链接：<a href="https://github.com/scwangyuan/scwangyuan.github.io/2018/10/22/牛客算法初级班总结/">https://github.com/scwangyuan/scwangyuan.github.io/2018/10/22/牛客算法初级班总结/</a>
+            <p>发表日期：<a href="https://github.com/scwangyuan/scwangyuan.github.io/2018/10/22/牛客算法初级班总结/">October 22nd 2018, 9:05:14 pm</a>
+            <p>更新日期：<a href="https://github.com/scwangyuan/scwangyuan.github.io/2018/10/22/牛客算法初级班总结/">October 22nd 2018, 9:35:06 pm</a>
+            <p>版权声明：本文采用<a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可</p>
+        </div>
+    
+    <!-- paginator  -->
+    <ul class="post-paginator">
+        <li class="next">
+            
+        </li>
+        <li class="previous">
+            
+                <div class="prevSlogan">Previous Post</div>
+                <a href= "/2018/09/23/Git常用命令/" title= "Git常用命令速查">
+                    <div class="prevTitle">Git常用命令速查</div>
+                </a>
+            
+        </li>
+    </ul>
+    <!-- 评论插件 -->
+    <!-- 来必力City版安装代码 -->
+
+<!-- City版安装代码已完成 -->
+    
+    
+    <!-- partial('_partial/comment/changyan') -->
+    <!--PC版-->
+
+
+    
+    
+
+    <!-- 评论 -->
+</main>
+            <!-- profile -->
+            
+        </div>
+        <footer class="footer footer-unloaded">
+    <!-- social  -->
+    
+    <div class="social">
+        
+    
+        
+            
+                <a href="mailto:scwangyuan@gmail.com" class="iconfont-archer email" title=email ></a>
+            
+        
+    
+        
+            
+                <a href="https://github.com/scwangyuan/scwangyuan.github.io/tree/master/2018/09/22" class="iconfont-archer github" target="_blank" title=github></a>
+            
+        
+    
+        
+            
+                <span class="iconfont-archer wechat" title=wechat>
+                  
+                  <img class="profile-qr" src="/assets/example_qr.png" />
+                </span>
+            
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+    </div>
+    
+    <!-- powered by Hexo  -->
+    <div class="copyright">
+        <span id="hexo-power">Powered by <a href="https://hexo.io/" target="_blank">Hexo</a></span><span class="iconfont-archer power">&#xe635;</span><span id="theme-info">theme <a href="https://github.com/fi3ework/hexo-theme-archer" target="_blank">Archer</a></span>
+    </div>
+    <!-- 不蒜子  -->
+    
+    <div class="busuanzi-container">
+    
+     
+    <span id="busuanzi_container_site_pv">PV: <span id="busuanzi_value_site_pv"></span> :)</span>
+    
+    </div>
+    
+</footer>
+    </div>
+    <!-- toc -->
+    
+    <div class="toc-wrapper" style=
+    
+
+
+
+
+
+
+
+top:50vh;
+
+    >
+        <div class="toc-catalog">
+            <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
+        </div>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#牛客算法初级班第一课总结"><span class="toc-number">1.</span> <span class="toc-text">牛客算法初级班第一课总结</span></a></li></ol>
+    </div>
+    
+    <div class="back-top iconfont-archer">&#xe639;</div>
+    <div class="sidebar sidebar-hide">
+    <ul class="sidebar-tabs sidebar-tabs-active-0">
+        <li class="sidebar-tab-archives"><span class="iconfont-archer">&#xe67d;</span><span class="tab-name">Archive</span></li>
+        <li class="sidebar-tab-tags"><span class="iconfont-archer">&#xe61b;</span><span class="tab-name">Tag</span></li>
+        <li class="sidebar-tab-categories"><span class="iconfont-archer">&#xe666;</span><span class="tab-name">Cate</span></li>
+    </ul>
+    <div class="sidebar-content sidebar-content-show-archive">
+          <div class="sidebar-panel-archives">
+    <!-- 在ejs中将archive按照时间排序 -->
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <div class="total-and-search">
+        <div class="total-archive">
+        Total : 5
+        </div>
+        <!-- search  -->
+        
+    </div>
+    
+    <div class="post-archive">
+    
+    
+    
+    
+    <div class="archive-year"> 2018 </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/22</span><a class="archive-post-title" href= "/2018/10/22/牛客算法初级班总结/" >牛客算法初级班总结</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">09/23</span><a class="archive-post-title" href= "/2018/09/23/Git常用命令/" >Git常用命令速查</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">09/23</span><a class="archive-post-title" href= "/2018/09/23/update-blog/" >update_blog步骤</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">09/22</span><a class="archive-post-title" href= "/2018/09/22/我的新帖子/" >Hexo+Github搭建博客</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">09/22</span><a class="archive-post-title" href= "/2018/09/22/hello-world/" >Hello World</a>
+        </li>
+    
+    </div>
+  </div>
+        <div class="sidebar-panel-tags">
+    <div class="sidebar-tags-name">
+    
+        <span class="sidebar-tag-name" data-tags="Git 命令"><span class="iconfont-archer">&#xe606;</span>Git 命令</span>
+    
+    </div>
+    <div class="iconfont-archer sidebar-tags-empty">&#xe678;</div>
+    <div class="tag-load-fail" style="display: none; color: #ccc; font-size: 0.6rem;">
+    缺失模块。<br/>
+    1、请确保node版本大于6.2<br/>
+    2、在博客根目录（注意不是archer根目录）执行以下命令：<br/>
+    <span style="color: #f75357; font-size: 1rem; line-height: 2rem;">npm i hexo-generator-json-content --save</span><br/>
+    3、在根目录_config.yml里添加配置：
+    <pre style="color: #787878; font-size: 0.6rem;">
+jsonContent:
+  meta: false
+  pages: false
+  posts:
+    title: true
+    date: true
+    path: true
+    text: false
+    raw: false
+    content: false
+    slug: false
+    updated: false
+    comments: false
+    link: false
+    permalink: false
+    excerpt: false
+    categories: true
+    tags: true</pre>
+    </div> 
+    <div class="sidebar-tags-list"></div>
+</div>
+        <div class="sidebar-panel-categories">
+    <div class="sidebar-categories-name">
+    
+    </div>
+    <div class="iconfont-archer sidebar-categories-empty">&#xe678;</div>
+    <div class="sidebar-categories-list"></div>
+</div>
+    </div>
+</div> 
+    <script>
+    var siteMeta = {
+        root: "/",
+        author: "scwangyuan"
+    }
+</script>
+    <!-- CDN failover -->
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+    <script type="text/javascript">
+        if (typeof window.$ === 'undefined')
+        {
+            console.warn('jquery load from jsdelivr failed, will load local script')
+            document.write('<script src="/lib/jquery.min.js">\x3C/script>')
+        }
+    </script>
+    <script src="/scripts/main.js"></script>
+    <!-- algolia -->
+    
+    <!-- busuanzi  -->
+    
+    <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    
+    <!-- CNZZ  -->
+    
+    </div>
+    <!-- async load share.js -->
+    
+        <script src="/scripts/share.js" async></script>    
+     
+    </body>
+</html>
+
+
